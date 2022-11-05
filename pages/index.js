@@ -1,26 +1,28 @@
 // Libraries
+import prisma from "../lib/prisma";
 
 // Components
-import StudentCard from "../components/StudentCard"
-import Layout from "../components/Layout"
+import StudentCard from "../components/StudentCard";
+import Layout from "../components/Layout";
 
-// Sample Data
-const students = [
-  {
-    name: 'Akash NP',
-    email: 'akashnp1998@gmail.com',
-    phone: '8075680338',
-  },
-  {
-    name: 'Adarsh NP',
-    email: 'npadarsh77@gmail.com',
-    phone: '7994380580',
+// Data Fetching
+export async function getServerSideProps() {
+  const students = await prisma.student.findMany({
+    include: {
+      phone: true,
+    }
+  });
+  return {
+    props: {
+      students: JSON.parse(JSON.stringify(students))
+    }
   }
-]
+}
 
 
 // Page Component
-export default function Home() {
+export default function Home({students}) {
+  console.log(students)
   return (
     <Layout>
       {students.map((student) => {
