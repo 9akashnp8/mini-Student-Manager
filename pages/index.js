@@ -1,5 +1,6 @@
 // Libraries
 import prisma from "../lib/prisma";
+import Link from "next/link";
 
 // Components
 import StudentCard from "../components/StudentCard";
