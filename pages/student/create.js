@@ -1,11 +1,27 @@
 // Libraries
+import { useRouter } from "next/router";
 import { useState } from "react"
 
 // Components
 
-// Page component
+// Helpers
+async function createStudent(body) {
+    let createdStudent;
+    const id = await fetch('/api/student/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    })
+    .then(data => data.json())
+    .then(res => createdStudent = res );
+    return createdStudent;
+}
 
+// Page component
 export default function CreateStudent() {
+    const router = useRouter();
+
+    const [ rollNo, setRollNo ] = useState("");
     const [ fullName, setFullName ] = useState("");
     const [ gender, setGender ] = useState("");
     const [ address, setAddress ] = useState("");
@@ -14,17 +30,39 @@ export default function CreateStudent() {
     const [ email, setEmail ] = useState("");
     const [ phone, setPhone ] = useState("");
     const [ owner, setOwner ] = useState("");
-    const [ rollNo, setRollNo ] = useState("");
 
-    function createStudent(event) {
+    async function handleCreateStudent(event) {
         event.preventDefault();
-        // To do
+
+        const body = {
+            rollNo: event.target.rollNo.value,
+            fullName: event.target.fullName.value,
+            gender: event.target.gender.value,
+            dob: '',
+            address: event.target.address.value,
+            nationality: event.target.nationality.value,
+            school: event.target.school.value,
+            email: event.target.email.value,
+            phone: event.target.phone.value,
+            owner: event.target.owner.value,
+        }
+
+        let createdStudent;
+        await fetch('/api/student/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        })
+        .then(data => data.json())
+        .then(res => createdStudent = res.id );
+
+        router.push(`/student/${createdStudent}`);
     }
 
     return (
         <div>
             <form 
-                onSubmit={createStudent}
+                onSubmit={handleCreateStudent}
                 className="flex flex-col gap-5 items-start"
             >
                 <div className="">
@@ -110,7 +148,7 @@ export default function CreateStudent() {
                 </div>
                 <div className="">
                     <label htmlFor="owner">Owner:</label>
-                    <select id="owner" value={owner} onChange={e => setOwner(e.target.value)} className="ml-5 rounded">
+                    <select required id="owner" value={owner} onChange={e => setOwner(e.target.value)} className="ml-5 rounded">
                         <option value={0}>Select Owner</option>
                         <option value={1}>Safna CB</option>
                         <option value={2}>Immanuel P</option>
