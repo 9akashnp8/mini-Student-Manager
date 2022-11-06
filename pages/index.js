@@ -36,6 +36,7 @@ export default function Home({students}) {
       {students.map((student) => {
         return (
           <StudentCard
+            key={student.id}
             student={student}
           />
         )
