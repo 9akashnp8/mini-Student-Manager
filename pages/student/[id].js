@@ -1,9 +1,9 @@
 // Libraries
 import prisma from "../../lib/prisma"
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 // Components
-import Layout from "../../components/Layout";
 
 // Data fetching
 export async function getServerSideProps({params}) {
@@ -23,7 +23,16 @@ export async function getServerSideProps({params}) {
 
 // Page Component
 export default function StudentDetailPage({student}) {
+    const [ privateStatus, setPrivateStatus ] = useState(true);
     const router = useRouter();
+
+    function handlePrivate(data)  {
+        if (privateStatus) {
+            return "**********"
+        } else {
+            return data;
+        }
+    }
 
     return (
         <div>
@@ -42,7 +51,10 @@ export default function StudentDetailPage({student}) {
                 <div className="py-3">
                     <h4 className="text-sm pb-2">Primary Info</h4>
                     <div className="grid grid-cols-2 gap-3">
-                        <p >Roll No: {student.roll_no}</p>
+                        <div>
+                            Roll No: {handlePrivate(student.roll_no)}
+                            <button onClick={() => setPrivateStatus(!privateStatus)} className="text-sm bg-slate-200">View</button>
+                        </div>
                         <p>Email: {student.email}</p>
                         {student.phone.map(phone => <p>Phone: {phone.number}</p>)}
                     </div>
