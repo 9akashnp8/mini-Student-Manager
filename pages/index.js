@@ -1,10 +1,9 @@
 // Libraries
 import prisma from "../lib/prisma";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 // Components
 import StudentCard from "../components/StudentCard";
-import Layout from "../components/Layout";
 
 // Data Fetching
 export async function getServerSideProps() {
@@ -23,9 +22,18 @@ export async function getServerSideProps() {
 
 // Page Component
 export default function Home({students}) {
-  console.log(students)
+  const router = useRouter();
   return (
-    <Layout>
+    <div>
+      <div className="flex justify-between items-center py-3">
+        <p>{router.pathname}</p>
+        <button
+          className="bg-slate-600 text-white p-2 rounded"
+          onClick={() => router.push("/create")}
+        >
+          Create New Student
+        </button>
+      </div>
       {students.map((student) => {
         return (
           <StudentCard
@@ -33,6 +41,6 @@ export default function Home({students}) {
           />
         )
       })}
-    </Layout>
+    </div>
   )
 }
