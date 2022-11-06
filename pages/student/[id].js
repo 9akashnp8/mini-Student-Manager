@@ -1,7 +1,9 @@
 // Libraries
 import prisma from "../../lib/prisma"
+import { useRouter } from "next/router";
 
 // Components
+import Layout from "../../components/Layout";
 
 // Data fetching
 export async function getServerSideProps({params}) {
@@ -21,20 +23,41 @@ export async function getServerSideProps({params}) {
 
 // Page Component
 export default function StudentDetailPage({student}) {
+    const router = useRouter();
+
     return (
         <div>
-            <h2>{student.full_name}</h2>
-            <hr/>
-            <h4>Primary Info</h4>
-            <p>{student.roll_no}</p>
-            <p>{student.email}</p>
-            {student.phone.map(phone => <p>{phone.number}</p>)}
-            <hr/>
-            <h4>Personal Info</h4>
-            <p>{student.gender}</p>
-            <p>{student.address}</p>
-            <p>{student.nationality}</p>
-            <p>{student.school}</p>
+            <div className="flex justify-between items-center py-3">
+                <div>{router.asPath}</div>
+                <button
+                    className="bg-slate-600 text-white p-2 rounded"
+                    onClick={() => router.push("/create")}
+                >
+                    Create New Student
+                </button>
+            </div>
+            <div className="bg-white p-5 rounded">
+                <h2 className="text-2xl pb-3">{student.full_name}</h2>
+                <hr/>
+                <div className="py-3">
+                    <h4 className="text-sm pb-2">Primary Info</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        <p >Roll No: {student.roll_no}</p>
+                        <p>Email: {student.email}</p>
+                        {student.phone.map(phone => <p>Phone: {phone.number}</p>)}
+                    </div>
+                </div>
+                <hr/>
+                <div className="py-3">
+                    <h4 className="text-sm pb-2">Personal Info</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                        <p >Gender: {student.gender}</p>
+                        <p>Address: {student.address}</p>
+                        <p>Nationality: {student.nationality}</p>
+                        <p>School: {student.school}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
