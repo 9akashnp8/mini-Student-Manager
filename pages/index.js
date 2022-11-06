@@ -29,7 +29,7 @@ export default function Home({students}) {
         <p>{router.pathname}</p>
         <button
           className="bg-slate-600 text-white p-2 rounded"
-          onClick={() => router.push("/create")}
+          onClick={() => router.push("/student/create")}
         >
           Create New Student
         </button>
