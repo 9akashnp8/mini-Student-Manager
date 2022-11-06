@@ -4,6 +4,7 @@ import { useState } from "react";
 import Head from 'next/head';
 
 // Components
+import Navigation from "../../components/Navigation";
 
 // Helpers
 async function createStudent(body) {
@@ -65,6 +66,9 @@ export default function CreateStudent() {
             <Head>
                 <title>mini-SM | Create Student</title>
             </Head>
+            <Navigation path='/'>
+                Cancel
+            </Navigation>
             <form 
                 onSubmit={handleCreateStudent}
                 className="flex flex-col gap-5 items-start"

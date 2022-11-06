@@ -5,6 +5,7 @@ import { useState } from "react";
 import Head from "next/head";
 
 // Components
+import Navigation from "../../components/Navigation";
 
 // Data fetching
 export async function getServerSideProps({params}) {
@@ -39,14 +40,9 @@ export default function StudentDetailPage({student}) {
             <Head>
                 <title>mini-SM</title>
             </Head>
-            <div className="flex justify-between items-center py-3">
-                <button
-                    className="bg-slate-600 text-white p-2 rounded"
-                    onClick={() => router.push("/student/create")}
-                >
-                    Create New Student
-                </button>
-            </div>
+            <Navigation path='/'>
+                Home
+            </Navigation>
             <div className="bg-white p-5 rounded">
                 <h2 className="text-2xl pb-3">{student.full_name}</h2>
                 <hr/>

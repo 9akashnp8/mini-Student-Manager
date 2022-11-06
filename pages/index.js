@@ -5,6 +5,7 @@ import Head from "next/head";
 
 // Components
 import StudentCard from "../components/StudentCard";
+import Navigation from "../components/Navigation";
 
 // Data Fetching
 export async function getServerSideProps() {
@@ -29,14 +30,9 @@ export default function Home({students}) {
       <Head>
         <title>mini-SM | Students</title>
       </Head>
-      <div className="flex justify-between items-center py-3">
-        <button
-          className="bg-slate-600 text-white p-2 rounded"
-          onClick={() => router.push("/student/create")}
-        >
-          Create New Student
-        </button>
-      </div>
+      <Navigation path='/student/create'>
+        Create New Student
+      </Navigation>
       {students.map((student) => {
         return (
           <StudentCard
