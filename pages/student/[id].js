@@ -2,6 +2,7 @@
 import prisma from "../../lib/prisma"
 import { useRouter } from "next/router";
 import { useState } from "react";
+import Head from "next/head";
 
 // Components
 
@@ -35,11 +36,13 @@ export default function StudentDetailPage({student}) {
 
     return (
         <div>
+            <Head>
+                <title>mini-SM</title>
+            </Head>
             <div className="flex justify-between items-center py-3">
-                <div>{router.asPath}</div>
                 <button
                     className="bg-slate-600 text-white p-2 rounded"
-                    onClick={() => router.push("/create")}
+                    onClick={() => router.push("/student/create")}
                 >
                     Create New Student
                 </button>

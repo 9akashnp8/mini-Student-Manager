@@ -1,6 +1,7 @@
 // Libraries
 import prisma from "../lib/prisma";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 // Components
 import StudentCard from "../components/StudentCard";
@@ -25,8 +26,10 @@ export default function Home({students}) {
   const router = useRouter();
   return (
     <div>
+      <Head>
+        <title>mini-SM | Students</title>
+      </Head>
       <div className="flex justify-between items-center py-3">
-        <p>{router.pathname}</p>
         <button
           className="bg-slate-600 text-white p-2 rounded"
           onClick={() => router.push("/student/create")}

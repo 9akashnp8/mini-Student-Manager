@@ -1,6 +1,7 @@
 // Libraries
 import { useRouter } from "next/router";
-import { useState } from "react"
+import { useState } from "react";
+import Head from 'next/head';
 
 // Components
 
@@ -61,6 +62,9 @@ export default function CreateStudent() {
 
     return (
         <div>
+            <Head>
+                <title>mini-SM | Create Student</title>
+            </Head>
             <form 
                 onSubmit={handleCreateStudent}
                 className="flex flex-col gap-5 items-start"
